@@ -1,0 +1,10 @@
+"""Bulk remover of C2PA Content Credentials from PSD / PSB / JPEG files."""
+
+module(
+    name = "strip_credentials",
+    version = "0.1.0",
+)
+
+# Bazel 9 no longer bundles the C++ rules or WORKSPACE support: both come from here.
+bazel_dep(name = "rules_cc", version = "0.2.26")
+bazel_dep(name = "platforms", version = "1.0.0")

@@ -1,0 +1,20 @@
+# Pick up the build:linux / build:macos / build:windows sections below automatically.
+common --enable_platform_specific_config
+
+# The sources need C++17 (<filesystem>, std::optional).
+build:linux --cxxopt=-std=c++17
+build:macos --cxxopt=-std=c++17
+build:windows --cxxopt=/std:c++17
+build:windows --cxxopt=/EHsc
+
+# Show the log of failing tests instead of just a path to it.
+test --test_output=errors
+
+# bazel test --config=asan //...   AddressSanitizer + UBSan; any undefined behaviour aborts the test.
+build:asan --copt=-fsanitize=address,undefined
+build:asan --copt=-fno-sanitize-recover=undefined
+build:asan --copt=-fno-omit-frame-pointer
+build:asan --copt=-O1
+build:asan --copt=-g
+build:asan --linkopt=-fsanitize=address,undefined
+build:asan --strip=never
